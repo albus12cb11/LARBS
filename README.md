@@ -7,7 +7,7 @@ On an Arch based distribution as root, run the following:
 
 ```
 // curl -LO larbs.xyz/larbs.sh
-curl -LO https://raw.githubusercontent.com/LukeSmithxyz/LARBS/master/larbs.sh
+curl -LO https://raw.githubusercontent.com/albus12cb11/LARBS/master/larbs.sh
 sh larbs.sh
 ```
 
