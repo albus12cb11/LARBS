@@ -177,19 +177,13 @@ preinstallmsg || error "User exited."
 
 adduserandpass || error "Error adding username and/or password."
 
-# Refresh Arch keyrings.
-refreshkeys || error "Error automatically refreshing Arch keyring. Consider doing so manually."
 
-dialog --title "LARBS Installation" --infobox "Installing \`basedevel\` and \`git\` for installing other software required for the installation of other programs." 5 70
-installpkg curl
-installpkg base-devel
-installpkg git
-installpkg ntp
 
-dialog --title "LARBS Installation" --infobox "Synchronizing system time to ensure successful and secure installation of software..." 4 70
-ntpdate 0.us.pool.ntp.org >/dev/null 2>&1
 
 [ "$distro" = arch ] && { \
+  # Refresh Arch keyrings.
+  refreshkeys || error "Error automatically refreshing Arch keyring. Consider doing so manually."
+
 	[ -f /etc/sudoers.pacnew ] && cp /etc/sudoers.pacnew /etc/sudoers # Just in case
 
 	# Allow user to run sudo without password. Since AUR programs must be installed
@@ -205,6 +199,16 @@ ntpdate 0.us.pool.ntp.org >/dev/null 2>&1
 
 	manualinstall $aurhelper || error "Failed to install AUR helper."
 	}
+
+dialog --title "LARBS Installation" --infobox "Installing \`basedevel\` and \`git\` for installing other software required for the installation of other programs." 5 70
+installpkg curl
+installpkg base-devel
+installpkg git
+installpkg ntp
+
+dialog --title "LARBS Installation" --infobox "Synchronizing system time to ensure successful and secure installation of software..." 4 70
+ntpdate 0.us.pool.ntp.org >/dev/null 2>&1
+
 
 # The command that does all the installing. Reads the progs.csv file and
 # installs each needed program the way required. Be sure to run this only after
